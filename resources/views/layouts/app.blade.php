@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ config('app.name', 'Laravel') }}</title>
+        <title>{{ $title ?? config('app.name', 'Laravel') }}</title>
 
         <!-- Styles -->
         <link rel="stylesheet" href="{{ asset('css/app.css') }}">
@@ -19,11 +19,11 @@
             <div class="flex">
                 @include('layouts.sidebar')
                 <!-- Page Content -->
-                <main class="">
+                <main class="p-2 w-4/5 bg-gray-300">
                     {{ $slot }}
                 </main>
             </div>
-
         </div>
     </body>
+    @stack('after_script')
 </html>
