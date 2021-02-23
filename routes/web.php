@@ -15,6 +15,7 @@ Route::middleware('auth')->group(function(){
         Route::get('create', [AdminController::class, 'create'])->name('admin.create');
         Route::post('create', [AdminController::class, 'store']);
         Route::get('edit/{user:email}', [AdminController::class, 'edit'])->name('admin.edit');
+        Route::patch('edit/{user:email}', [AdminController::class, 'update']);
     });
 });
 
