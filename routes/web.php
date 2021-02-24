@@ -16,6 +16,7 @@ Route::middleware('auth')->group(function(){
         Route::post('create', [AdminController::class, 'store']);
         Route::get('edit/{user:email}', [AdminController::class, 'edit'])->name('admin.edit');
         Route::patch('edit/{user:email}', [AdminController::class, 'update']);
+        Route::delete('delete/{user:email}', [AdminController::class, 'destroy'])->name('admin.destroy');
     });
 });
 

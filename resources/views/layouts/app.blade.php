@@ -24,6 +24,6 @@
                 </main>
             </div>
         </div>
+        @stack('after_script')
     </body>
-    @stack('after_script')
 </html>

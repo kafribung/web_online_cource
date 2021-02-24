@@ -7,7 +7,7 @@
         <form method="POST" action="{{ route('admin.edit', $user->email) }}">
             @csrf
             @method('PATCH')
-            @include('backend.admin.form', ['btn' => 'edit'])
+            @include('backend.admin._form', ['btn' => 'edit'])
         </form>
     </div>
 

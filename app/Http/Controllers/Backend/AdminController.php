@@ -30,10 +30,8 @@ class AdminController extends Controller
     public function store(AdminRequest $request)
     {
         $data =  $request->validated();
-        dd($data);
         $data['password'] = Hash::make($request->password);
         User::create($data);
-        
         // Spatie Insert Role
         $user =User::latest()->first();
         $user->assignRole('admin');
@@ -64,6 +62,12 @@ class AdminController extends Controller
             Auth::logout();
             return redirect('/login')->with('status', 'Re-Login');
         } else return back()->withErrors(['password' => 'Password not match']);
+    }
+
+    // Delete
+    public function destroy(User $user)
+    {
+        $user->delete();
     }
 
 }
