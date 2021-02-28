@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Backend;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\AdminRequest;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+
+use function PHPUnit\Framework\returnSelf;
 
 class UserController extends Controller
 {
@@ -30,43 +34,35 @@ class UserController extends Controller
         return redirect('user')->with('status', 'Create data successfully');
     }
 
-    // 
+    //  SHOW
     public function show($id)
     {
-        //
+        return abort('404');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    // EDIT
+    public function edit(User $user)
     {
-        //
+        return view('backend.user.edit', compact('user'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    // 
+    public function update(AdminRequest $request, User $user)
     {
-        //
+        $data = $request->validated();
+        $oldPassword     = $request->password;
+        $newPassword     = $request->password_new;
+        $currentPassword = Auth::user()->password;
+        if (Hash::check($oldPassword, $currentPassword)) {
+            $data['password'] = bcrypt($newPassword);
+            Auth::logout();
+            return redirect('login')->with('status', 'Re-login');
+        } else return back()->withErrors(['password' => 'password dont match']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    //
+    public function destroy(User $user)
     {
-        //
+        $user->delete();
     }
 }
