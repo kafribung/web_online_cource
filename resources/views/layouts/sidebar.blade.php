@@ -10,7 +10,7 @@
     </div>
     <div class="mb-5">
         <h3 class="text-base text-gray-800 font-medium py-2 uppercase">Users</h3>
-        <a href="#" class="text-sm text-gray-500 hover:text-gray-400 py-2">User</a>
+        <a href="{{ route('user.index') }}" class="text-sm text-gray-500 hover:text-gray-400 py-2 {{ Request::is('user') || Request::is('user/*') ? 'font-extrabold' : '' }}">User</a>
     </div>
     @endrole
 

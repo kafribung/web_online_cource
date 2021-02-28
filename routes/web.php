@@ -1,7 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Backend\{AdminController, DashboardController};
+use App\Http\Controllers\Backend\{AdminController, DashboardController, UserController};
+use PHPUnit\TextUI\XmlConfiguration\Group;
 
 Route::get('/', function () {
     return redirect('dashboard');
@@ -17,6 +18,10 @@ Route::middleware('auth')->group(function(){
         Route::get('edit/{user:email}', [AdminController::class, 'edit'])->name('admin.edit');
         Route::patch('edit/{user:email}', [AdminController::class, 'update']);
         Route::delete('delete/{user:email}', [AdminController::class, 'destroy'])->name('admin.destroy');
+    });
+
+    Route::middleware('role:super-admin')->group(function(){
+        Route::resource('user', UserController::class);
     });
 });
 
