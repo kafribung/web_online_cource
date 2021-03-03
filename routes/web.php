@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Backend\{AdminController, DashboardController, UserController};
+use App\Http\Controllers\Backend\{AdminController, DashboardController, CategoryController, UserController};
 use PHPUnit\TextUI\XmlConfiguration\Group;
 
 Route::get('/', function () {
@@ -22,6 +22,15 @@ Route::middleware('auth')->group(function(){
 
     Route::middleware('role:super-admin')->group(function(){
         Route::resource('user', UserController::class);
+    });
+    // authorization : super-admin hanya dapat mendeteksi method middleware permission
+    Route::middleware('permission:create category')->prefix('category')->group(function(){
+        Route::get('', [CategoryController::class, 'index'])->name('category.index');
+        Route::get('create', [CategoryController::class, 'create'])->name('category.create');
+        Route::post('create', [CategoryController::class, 'store']);
+        Route::get('edit/{category:slug}', [CategoryController::class, 'edit'])->name('category.edit');
+        Route::patch('edit/{category:slug}', [CategoryController::class, 'update']);
+        Route::delete('edit/{category:slug}', [CategoryController::class, 'destroy']);
     });
 });
 
