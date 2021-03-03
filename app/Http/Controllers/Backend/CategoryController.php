@@ -33,7 +33,16 @@ class CategoryController extends Controller
     // Edit
     public function edit(Category $category)
     {
-        return view('backend.category.create', compact('category'));
+        return view('backend.category.edit', compact('category'));
+    }
+
+    // Update
+    public function update(CategoryRequest $request, Category $category)
+    {
+        $data = $request->validated();
+        $data['slug'] = \Str::slug($request->title);
+        $category->update($data);
+        return redirect('category')->with('status', 'Update data successfully');
     }
 
 
