@@ -19,7 +19,7 @@
     @if (Auth::user()->can('create category'))
     <div class="mb-5">
         <h3 class="text-base text-gray-800 font-medium py-2 uppercase">Category</h3>
-        <a href="{{ route('category.index') }}" class="text-sm text-gray-500 hover:text-gray-400 py-2">Category</a>
+        <a href="{{ route('category.index') }}" class="text-sm text-gray-500 hover:text-gray-400 py-2 {{ request()->is('category') || request()->is('category/*') ? 'font-extrabold' : '' }}">Category</a>
     </div>
     @endif
     @can('create playlist')

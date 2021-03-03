@@ -45,7 +45,9 @@ class CategoryController extends Controller
         return redirect('category')->with('status', 'Update data successfully');
     }
 
-
-
-
+    // Delete
+    public function destroy(Category $category)
+    {
+        $category->delete();
+    } 
 }

@@ -7,8 +7,7 @@
         <form method="POST" action="{{ route('category.edit', $category->slug) }}" novalidate>
             @csrf
             <input type="hidden" name="_method" value="PATCH">
-            @include('backend.category._form', ['category' => $category])
+            @include('backend.category._form', ['btn' => 'Edit'])
         </form>
     </div>
-
 </x-app-layout>

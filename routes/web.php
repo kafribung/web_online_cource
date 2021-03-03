@@ -30,7 +30,7 @@ Route::middleware('auth')->group(function(){
         Route::post('create', [CategoryController::class, 'store']);
         Route::get('edit/{category:slug}', [CategoryController::class, 'edit'])->name('category.edit');
         Route::patch('edit/{category:slug}', [CategoryController::class, 'update']);
-        Route::delete('edit/{category:slug}', [CategoryController::class, 'destroy']);
+        Route::delete('delete/{category:slug}', [CategoryController::class, 'destroy']);
     });
 });
 
