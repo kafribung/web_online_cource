@@ -8,6 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Category extends Model
 {
     use HasFactory;
+    
+    //RouteKeyName
+    public function getRouteKeyName()
+    {
+        return 'slug';   
+    }
 
     // No timestamps
     public $timestamps = false;
