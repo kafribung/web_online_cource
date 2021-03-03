@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 use function PHPUnit\Framework\returnSelf;
 
@@ -15,8 +16,7 @@ class AdminController extends Controller
     // Read
     public function index()
     {
-        // $admin = User::with('roles')->role('super-admin')->first();
-        $admins = User::with('roles')->get();
+        $admins = User::with('roles')->role(['admin','super-admin'])->get();
         return view('backend.admin.admin', compact('admins'));
     }
 

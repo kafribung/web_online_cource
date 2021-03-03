@@ -62,7 +62,7 @@
                             {{ $admin->email }}
                         </td>
                         <td class="px-2 py-4 whitespace-nowrap">
-                            {{-- {{ $admin->roles[0]->name }} --}}
+                            {{ $admin->roles[0]->name }}
                         </td>
                         <td id="app" class="px-2 py-4 whitespace-nowrap text-sm text-gray-500">
                             <div class="flex justify-start space-x-1">
