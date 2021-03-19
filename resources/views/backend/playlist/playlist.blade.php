@@ -14,13 +14,14 @@
             </div>
             <div>
                 <div class="m-2">
-                    <div class="inline-flex bg-red-400 px-1 py-1 rounded-lg text-sm">Laravel </div>
-                    <div class="inline-flex bg-red-400 px-1 py-1 rounded-lg text-sm">Css</div>
+                    <span class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-green-500 rounded-full">Laravel</span>
+                    <span class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-green-500 rounded-full">Css</span>
+
                 </div>
                 
                 <div class="m-2 text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, optio?</div> 
-                <div>
-                    <button></button>
+                <div class="flex">
+                    <button class="bg-blue-400 px-4 py-1 rounded-xl outline-none focus:outline-none  hover:bg-blue-300">Sapi</button>
                 </div>
             </div>
         </div>
