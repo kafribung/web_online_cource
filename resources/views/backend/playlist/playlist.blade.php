@@ -5,7 +5,7 @@
     <div class="grid grid-cols-4 gap-2 h-14">
         <div class="bg-gray-200 rounded-lg">
             <div class="m-2 font-bold text-base">Judul</div>
-            <div class="m-2 leading-none text-xs">Rp. 20000</div>
+            <div class="m-2 leading-none italic text-xs">Rp. 20000</div>
             <div class="m-2 leading-none text-xs">Author: Kafri Bung</div>
             <div class="">
                 <svg viewBox="0 0 316 316" xmlns="http://www.w3.org/2000/svg">
