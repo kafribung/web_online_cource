@@ -15,6 +15,7 @@
             <div class="mt-2">
                 <x-label for="img" :value="__('img')" />
                 <x-input id="img" class="block mt-2 bg-white" type="file" name="img" accept="image/*"  required autofocus />
+                <x-auth-validation-error-manual has='img'></x-auth-validation-error-manual>
             </div>
             <div class="mt-2">
                 <x-label for="title" :value="__('Title')" />

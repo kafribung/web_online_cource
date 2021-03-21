@@ -15,22 +15,13 @@ class PlaylistController extends Controller
         return view('backend.playlist.playlist', compact('playlists'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // CREATE
     public function create()
     {
-        //
+        return view('backend.playlist.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    // STORE
     public function store(Request $request)
     {
         //
