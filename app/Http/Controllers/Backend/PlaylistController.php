@@ -23,9 +23,9 @@ class PlaylistController extends Controller
     }
 
     // STORE
-    public function store(PlaylistRequest $request)
+    public function store(Request $request)
     {
-        $data = $request->validated();
+        $data = $request->all();
         dd($data);
     }
 
