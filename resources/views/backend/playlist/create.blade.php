@@ -10,11 +10,13 @@
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
 
-        <form method="POST" action="{{ route('admin.create') }}" enctype="multipart/form-data">
+        <form action="/file-upload" class="dropzone" id="my-awesome-dropzone"></form>
+
+        <form method="POST"  action="{{ route('playlist.store') }}" enctype="multipart/form-data" novalidate>
             @csrf
             <div class="mt-2">
                 <x-label for="img" :value="__('img')" />
-                <x-input id="img" class="block mt-2 bg-white" type="file" name="img" accept="image/*"  required autofocus />
+                {{-- <x-input id="img" class="block mt-2 bg-white" type="file" name="img" accept="image/*"  required autofocus /> --}}
                 <x-auth-validation-error-manual has='img'></x-auth-validation-error-manual>
             </div>
             <div class="mt-2">
@@ -37,4 +39,10 @@
         </form>
     </div>
 
+@push('after_css')
+    <link rel="stylesheet" href="{{ asset('backend/dropzone/dist/min/dropzone.min.css') }}">
+@endpush
+@push('after_script')
+    <script src="{{ asset('backend/dropzone/dist/dropzone.js') }}"></script>
+@endpush
 </x-app-layout>

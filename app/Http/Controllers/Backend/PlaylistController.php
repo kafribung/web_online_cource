@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Backend\PlaylistRequest;
 use App\Models\Playlist;
 use Illuminate\Http\Request;
 
@@ -22,9 +23,10 @@ class PlaylistController extends Controller
     }
 
     // STORE
-    public function store(Request $request)
+    public function store(PlaylistRequest $request)
     {
-        //
+        $data = $request->validated();
+        dd($data);
     }
 
     /**
