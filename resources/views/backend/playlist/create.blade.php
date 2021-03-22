@@ -70,10 +70,11 @@
         let token = $('meta[name="csrf-token"]').attr('content');
         $(function() {
         var myDropzone = new Dropzone("div#dropzoneDragArea", { 
-            paramName: "file",
-            url: "{{ route('playlist.store') }}",
+            paramName: 'file',
+            url: "{{ url('/playlist') }}",
             previewsContainer: 'div.dropzone-previews',
             addRemoveLinks: true,
+            acceptedFiles: 'image/*',
             autoProcessQueue: false,
             uploadMultiple: false,
             parallelUploads: 1,
