@@ -27,6 +27,7 @@ class PlaylistRequest extends FormRequest
             'img'           => [ (request()->isMethod('POST')? 'required': '' ) , 'mimes:png,jpg,jpg'],
             'title'         => ['required', 'string', 'min:3', 'max:20', 'unique:playlists,title,', optional($this->playlist)->id],
             'price'         => ['required', 'numeric'],
+            'category'      => ['required', 'array'],
             'description'   => ['required'],
         ];
     }

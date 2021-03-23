@@ -25,9 +25,11 @@
                 <x-input id="price" class="block mt-2 w-full" type="number" name="price" :value="old('price')" required />
             </div>
             <div class="mt-2">
-                <x-label for="price" :value="__('Category')" />
+                <x-label for="category" :value="__('Category')" />
                 <select  id="category"  class="select2 block mt-2 w-full"  name="category[]" multiple required />
-                    <option value="">Ok</option>                    
+                    @foreach ($categories as $category)
+                        <option value="{{ $category->id }}">{{ $category->title }}</option> 
+                    @endforeach
                 </select>
             </div>
             <div class="mt-2">
@@ -74,14 +76,15 @@
                     contentType: false,
                     processData: false,
                     success: function(result){
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Your work has been saved',
-                            showConfirmButton: false,
-                            timer: 2000
-                        })
-                        location.reload('/playlist')
+                        // Swal.fire({
+                        //     position: 'top-end',
+                        //     icon: 'success',
+                        //     title: 'Your work has been saved',
+                        //     showConfirmButton: false,
+                        //     timer: 2000
+                        // })
+                        // location.reload('/playlist')
+                        console.log('succesc');
                     },
                     error: function(result){
                         if(result= result.responseJSON.errors)

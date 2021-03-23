@@ -17,7 +17,7 @@
                     <span class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-green-500 rounded-full">Css</span>
                 </div>
                 
-                <div class="m-2 text-justify">Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, optio?</div> 
+                <div class="m-2 text-justify">{{ Str::limit($playlist->description, 10)  }}<div> 
                 <div class="flex justify-center mb-2">
                     <a href="" class="border-2 border-yellow-200 rounded-md p-1 mr-1">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -35,6 +35,5 @@
             </div>
         </div> 
         @endforeach
-        
     </div>
 </x-app-layout>

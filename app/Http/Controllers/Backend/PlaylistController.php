@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\PlaylistRequest;
-use App\Models\Playlist;
+use App\Models\{Category, Playlist};
 use Illuminate\Http\Request;
 
 class PlaylistController extends Controller
@@ -12,14 +12,15 @@ class PlaylistController extends Controller
     // READ
     public function index()
     {
-        $playlists = Playlist::with('categories')->latest()->get();
+        $playlists = Playlist::with('user','categories')->latest()->get();
         return view('backend.playlist.playlist', compact('playlists'));
     }
 
     // CREATE
     public function create()
     {
-        return view('backend.playlist.create');
+        $categories = Category::get(['id','title']);
+        return view('backend.playlist.create', compact('categories'));
     }
 
     // STORE
@@ -30,7 +31,10 @@ class PlaylistController extends Controller
             $data['img'] = $img->storeAs('img_playlist', time() .  '.' . $img->getClientOriginalExtension()); 
         }
         $data['slug'] = \Str::slug($request->title);
+        // Eloquent Create Playlist
         $request->user()->playlists()->create($data);
+        // Eloquent Relation manyToMany
+        
         return response()->json(['msg', 'The item was created successfully']);
     }
 
