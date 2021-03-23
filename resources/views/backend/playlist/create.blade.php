@@ -28,7 +28,6 @@
                 <x-label for="price" :value="__('Category')" />
                 <select  id="category"  class="select2 block mt-2 w-full"  name="category[]" multiple required />
                     <option value="">Ok</option>                    
-                    <option value="">ko</option>                    
                 </select>
             </div>
             <div class="mt-2">
