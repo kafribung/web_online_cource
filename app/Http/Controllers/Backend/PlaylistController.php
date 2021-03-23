@@ -32,9 +32,9 @@ class PlaylistController extends Controller
         }
         $data['slug'] = \Str::slug($request->title);
         // Eloquent Create Playlist
-        $request->user()->playlists()->create($data);
+        $playlist =  $request->user()->playlists()->create($data);
         // Eloquent Relation manyToMany
-        
+        $playlist->categories()->attach($request->category);
         return response()->json(['msg', 'The item was created successfully']);
     }
 

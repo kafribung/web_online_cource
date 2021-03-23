@@ -76,15 +76,14 @@
                     contentType: false,
                     processData: false,
                     success: function(result){
-                        // Swal.fire({
-                        //     position: 'top-end',
-                        //     icon: 'success',
-                        //     title: 'Your work has been saved',
-                        //     showConfirmButton: false,
-                        //     timer: 2000
-                        // })
-                        // location.reload('/playlist')
-                        console.log('succesc');
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Your work has been saved',
+                            showConfirmButton: false,
+                            timer: 2000
+                        })
+                        location.reload('/playlist')
                     },
                     error: function(result){
                         if(result= result.responseJSON.errors)
