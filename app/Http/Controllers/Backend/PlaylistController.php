@@ -23,10 +23,15 @@ class PlaylistController extends Controller
     }
 
     // STORE
-    public function store(Request $request)
+    public function store(PlaylistRequest $request)
     {
-        $data = $request->all();
-        dd($request->file('file'));
+        $data = $request->validated();
+        if ($img=  $request->file('img')) {
+            $data['img'] = $img->storeAs('img_playlist', time() .  '.' . $img->getClientOriginalExtension()); 
+        }
+        $data['slug'] = \Str::slug($request->title);
+        $request->user()->playlists()->create($data);
+        return response()->json(['msg', 'The item was created successfully']);
     }
 
     /**

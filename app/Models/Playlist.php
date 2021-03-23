@@ -29,4 +29,10 @@ class Playlist extends Model
         return $this->belongsToMany(Category::class);
     }
 
+    // Mutator
+    public function getTakeImgAttribute()
+    {
+        return url('storage', $this->img);
+    }
+
 }
