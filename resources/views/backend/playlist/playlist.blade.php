@@ -2,14 +2,15 @@
     <x-slot name='title'>
         Playlist
     </x-slot>
-    <div class="grid grid-cols-4 gap-2 h-14">
+    <div id="app" class="grid grid-cols-4 gap-2 h-14">
         @foreach ($playlists as $playlist)
         <div class="bg-gray-200 rounded-lg">
             <div class="m-2 font-bold text-base">{{ $playlist->title }}</div>
             <div class="m-2 leading-none italic text-xs">Rp. {{ number_format($playlist->price, 2) }}</div>
             <div class="m-2 leading-none text-xs">Author: {{ $playlist->user->name }}</div>
-            <div class="">
-                <img src="{{ $playlist->takeImg }}" alt="Error" srcset="" width="200" height="200">
+            {{-- <img  width="200" height="200"> --}}
+            <div class="bg-rose-300">
+                <img class="object-contain h-48 w-full" src="{{ $playlist->takeImg }}" alt="Error" srcset="">
             </div>
             <div>
                 <div class="m-2">
@@ -19,15 +20,14 @@
                     <span class="inline-flex items-center justify-center px-2 py-1 mr-2 text-xs font-bold leading-none text-red-100 bg-red-500 rounded-full">Belum</span>
                     @endforelse
                 </div>
-                
                 <div class="m-2 text-justify">{{ Str::limit($playlist->description, 20)  }}</div> 
-                <div class="flex justify-center mb-2">
-                    <a href="" class="border-2 border-yellow-200 rounded-md p-1 mr-1">
+                <div  class="flex justify-center mb-2">
+                    <button   v-on:click="showModal = !showModal" class="border-2 border-yellow-200 rounded-md p-1 mr-1">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" class="h-4 w-4 text-yellow-500 hover:text-yellow-300">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
                         </svg>
-                    </a>
+                    </button>
                     <button  id="delete" onclick=" deleteAdmin()"  class="border-2 border-red-200 rounded-md p-1">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" class="h-4 w-4 text-red-500 hover:text-red-300">
@@ -38,5 +38,34 @@
             </div>
         </div> 
         @endforeach
+        {{-- Modal --}}
+        <div v-if="showModal" class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center z-50">
+            <div class="relative mx-auto w-auto max-w-2xl">
+                <div class="bg-white w-full rounded shadow-2xl flex flex-col">
+                    <div class="text-sm font-bold m-3">Hallo Modal</div>
+                    <div class="m-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo distinctio molestiae laborum! Porro qui nostrum deserunt at voluptatibus nemo ullam!</div>
+                    <div class="flex justify-end m-2">
+                        <button @click="showModal=false" class="px-4 py-2 bg-red-500 text-white rounded mr-2">Close</button>
+                        <button  class="px-4 py-2 bg-green-500 text-white rounded">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+@push('after_script')
+<script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script>
+    new Vue({
+        el: "#app",
+        data() {
+            return {
+                showModal: false,
+            }
+        },
+        methods: {
+           
+        },
+    })
+</script>
+@endpush
 </x-app-layout>
