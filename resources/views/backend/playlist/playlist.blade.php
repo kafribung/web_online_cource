@@ -40,10 +40,22 @@
         @endforeach
         {{-- Modal --}}
         <div v-if="showModal" class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center z-50">
-            <div class="relative mx-auto w-auto max-w-2xl">
+            <div class="relative mx-auto w-80 max-w-2xl">
                 <div class="bg-white w-full rounded shadow-2xl flex flex-col">
                     <div class="text-sm font-bold m-3">Hallo Modal</div>
-                    <div class="m-3">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quo distinctio molestiae laborum! Porro qui nostrum deserunt at voluptatibus nemo ullam!</div>
+                    <div class="m-3 max-w-2xl">
+                        <form action="">
+                            <div class="mt-2">
+                                <x-label for="img" :value="__('img')" />
+                                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+                            </div>
+                            <div class="mt-2">
+                                <x-label for="title" :value="__('Title')" />
+                                <x-input id="title" class="block mt-2 w-full" type="text" name="title" :value="old('title')" required />
+                            </div>
+                        </form>
+                        
+                    </div>
                     <div class="flex justify-end m-2">
                         <button @click="showModal=false" class="px-4 py-2 bg-red-500 text-white rounded mr-2">Close</button>
                         <button  class="px-4 py-2 bg-green-500 text-white rounded">Submit</button>
@@ -63,7 +75,6 @@
             }
         },
         methods: {
-           
         },
     })
 </script>
