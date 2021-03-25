@@ -22,7 +22,7 @@
                 </div>
                 <div class="m-2 text-justify">{{ Str::limit($playlist->description, 20)  }}</div> 
                 <div  class="flex justify-center mb-2">
-                    <button   v-on:click="showModal = !showModal" class="border-2 border-yellow-200 rounded-md p-1 mr-1">
+                    <button   v-on:click="editPlaylist( {{ json_encode($playlist->slug)  }} )" class="border-2 border-yellow-200 rounded-md p-1 mr-1">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
                             stroke="currentColor" class="h-4 w-4 text-yellow-500 hover:text-yellow-300">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
@@ -44,7 +44,7 @@
                 <div class="bg-white w-full rounded shadow-2xl flex flex-col">
                     <div class="text-sm font-bold m-3">Hallo Modal</div>
                     <div class="m-3 max-w-2xl">
-                        <form action="">
+                        <form v-on:submit.prevent="updatePlalist">
                             <div class="mt-2">
                                 <x-label for="img" :value="__('img')" />
                                 <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
@@ -53,12 +53,11 @@
                                 <x-label for="title" :value="__('Title')" />
                                 <x-input id="title" class="block mt-2 w-full" type="text" name="title" :value="old('title')" required />
                             </div>
+                            <div class="flex justify-end m-2">
+                                <button @click="showModal=false" class="px-4 py-2 bg-red-500 text-white rounded mr-2">Close</button>
+                                <button  class="px-4 py-2 bg-green-500 text-white rounded">Submit</button>
+                            </div>
                         </form>
-                        
-                    </div>
-                    <div class="flex justify-end m-2">
-                        <button @click="showModal=false" class="px-4 py-2 bg-red-500 text-white rounded mr-2">Close</button>
-                        <button  class="px-4 py-2 bg-green-500 text-white rounded">Submit</button>
                     </div>
                 </div>
             </div>
@@ -66,6 +65,7 @@
     </div>
 @push('after_script')
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
     new Vue({
         el: "#app",
@@ -74,7 +74,18 @@
                 showModal: false,
             }
         },
+
         methods: {
+            // Edit
+            editPlaylist(slug){
+                axios.get(`playlist/${slug}/edit`)
+                .then(response => {
+                    console.log(response.data.data);
+                })
+            },
+            updatePlalist(){
+                axios.get('playlist//edit')
+            }
         },
     })
 </script>

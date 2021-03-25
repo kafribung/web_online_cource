@@ -47,7 +47,7 @@ class PlaylistController extends Controller
     // EDIT
     public function edit(Playlist $playlist)
     {
-        dd($playlist);
+        return response(['data' => $playlist], 200);
     }
 
     /**
