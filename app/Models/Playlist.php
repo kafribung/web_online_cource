@@ -17,7 +17,10 @@ class Playlist extends Model
         'updated_at'
     ];
 
-    // 
+    // Eger Loading
+    protected $with = ['user', 'categories'];
+    
+    //  Route key name
     public function getRouteKeyName()
     {
         return 'slug';   

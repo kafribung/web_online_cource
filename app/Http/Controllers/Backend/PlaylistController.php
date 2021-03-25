@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Backend\PlaylistRequest;
+use App\Http\Resources\Backend\PlaylistResource;
 use App\Models\{Category, Playlist};
 use Illuminate\Http\Request;
 
@@ -47,7 +48,8 @@ class PlaylistController extends Controller
     // EDIT
     public function edit(Playlist $playlist)
     {
-        return response(['data' => $playlist], 200);
+        // return response(['data' => $playlist], 200);
+        return PlaylistResource::make($playlist);
     }
 
     /**
