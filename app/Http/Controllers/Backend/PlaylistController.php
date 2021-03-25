@@ -38,26 +38,16 @@ class PlaylistController extends Controller
         return response()->json(['msg', 'The item was created successfully']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // SHOW
     public function show($id)
     {
-        //
+        return abort('404');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    // EDIT
+    public function edit(Playlist $playlist)
     {
-        //
+        dd($playlist);
     }
 
     /**

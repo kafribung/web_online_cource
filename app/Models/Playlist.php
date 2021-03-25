@@ -17,6 +17,12 @@ class Playlist extends Model
         'updated_at'
     ];
 
+    // 
+    public function getRouteKeyName()
+    {
+        return 'slug';   
+    }
+
     // Relation many to one (User)
     public function user()
     {
