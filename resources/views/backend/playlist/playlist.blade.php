@@ -44,14 +44,21 @@
                 <div class="bg-white w-full rounded shadow-2xl flex flex-col">
                     <div class="text-sm font-bold m-3">Hallo Modal</div>
                     <div class="m-3 max-w-2xl">
-                        <form v-on:submit.prevent="updatePlalist">
+                        <form v-on:submit.prevent="updatePlalist" enctype="multipart/form-data">
                             <div class="mt-2">
+                                <div class="bg-rose-300">
+                                    <img class="object-contain h-48 w-full" :src="formDataUpdate.img" alt="Error" srcset="">
+                                </div>
                                 <x-label for="img" :value="__('img')" />
-                                <x-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autofocus />
+                                <x-input id="img" class="block mt-1 w-full" type="file"  v-on:change="handleFilesUpload()"  required autofocus />
                             </div>
                             <div class="mt-2">
                                 <x-label for="title" :value="__('Title')" />
-                                <x-input id="title" class="block mt-2 w-full" type="text" name="title" :value="old('title')" required />
+                                <x-input id="title" class="block mt-2 w-full" type="text" v-model="formDataUpdate.title" required />
+                            </div>
+                            <div class="mt-2">
+                                <x-label for="price" :value="__('Price')" />
+                                <x-input id="price" class="block mt-2 w-full" type="number" v-model="formDataUpdate.price" required />
                             </div>
                             <div class="flex justify-end m-2">
                                 <button @click="showModal=false" class="px-4 py-2 bg-red-500 text-white rounded mr-2">Close</button>
@@ -72,16 +79,15 @@
         data() {
             return {
                 showModal: false,
+                formDataUpdate: {},
             }
         },
-
         methods: {
             // Edit
-            editPlaylist(slug){
-                axios.get(`playlist/${slug}/edit`)
-                .then(response => {
-                    console.log(response.data.data);
-                })
+            async editPlaylist(slug){
+                this.showModal = !this.showModal
+                const response = await axios.get(`playlist/${slug}/edit`)
+                this.formDataUpdate = response.data.data
             },
             updatePlalist(){
                 axios.get('playlist//edit')
