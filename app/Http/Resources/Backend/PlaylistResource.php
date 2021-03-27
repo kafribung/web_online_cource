@@ -18,7 +18,7 @@ class PlaylistResource extends JsonResource
             'title'  => $this->title,
             'img'    => $this->takeImg,
             'slug'   => $this->slug,
-            'price'  => number_format($this->price, 2),
+            'price'  => $this->price,
             'description' => $this->description,
             'user'   => $this->user->name,
         ];
