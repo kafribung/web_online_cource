@@ -22,7 +22,7 @@
             </div>
             <div class="mt-2">
                 <x-label for="price" :value="__('Price')" />
-                <x-input id="price" class="block mt-2 w-full" type="number" name="price" :value="{{ old('price') }}" required />
+                <x-input id="price" class="block mt-2 w-full" type="number" name="price" :value=" old('price')" required />
             </div>
             <div class="mt-2">
                 <x-label for="category" :value="__('Category')" />

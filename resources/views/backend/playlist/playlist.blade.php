@@ -50,7 +50,7 @@
                                     <img class="object-contain h-48 w-full" :src="formDataUpdate.img" alt="Error" srcset="">
                                 </div>
                                 <x-label for="img" :value="__('img')" />
-                                <x-input id="img" class="block mt-1 w-full" type="file"  v-on:change="handleFilesUpload()"  required autofocus />
+                                <x-input id="img" class="block mt-1 w-full" type="file"  v-on:change="handleFileUpload"  required autofocus />
                             </div>
                             <div class="mt-2">
                                 <x-label for="title" :value="__('Title')" />
@@ -89,6 +89,9 @@
                 const response = await axios.get(`playlist/${slug}/edit`)
                 this.formDataUpdate = response.data.data
             },
+            handleFileUpload(e){
+                console.log(e);
+            }
             updatePlalist(){
                 axios.get('playlist//edit')
             }
