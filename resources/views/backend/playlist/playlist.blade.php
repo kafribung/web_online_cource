@@ -47,10 +47,10 @@
                         <form v-on:submit.prevent="updatePlalist" enctype="multipart/form-data">
                             <div class="mt-2">
                                 <div class="bg-rose-300">
-                                    <img class="object-contain h-48 w-full" :src="formDataUpdate.img" alt="Error" srcset="">
+                                    <img class="object-contain h-48 w-full" :src="formDataUpdate.img"  srcset="">
                                 </div>
                                 <x-label for="img" :value="__('img')" />
-                                <x-input id="img" class="block mt-1 w-full" type="file"  v-on:change="handleFileUpload"  autofocus required/>
+                                <x-input id="img" class="block mt-1 w-full" type="file"  v-on:change="handleFileUpload" accept="image/*"  autofocus required/>
                             </div>
                             <div class="mt-2">
                                 <x-label for="title" :value="__('Title')" />
