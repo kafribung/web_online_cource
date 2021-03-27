@@ -47,7 +47,7 @@
                         <form v-on:submit.prevent="updatePlalist" enctype="multipart/form-data">
                             <div class="mt-2">
                                 <div class="bg-rose-300">
-                                    <img class="object-contain h-48 w-full" :src="formDataUpdate.img"  srcset="">
+                                    <img class="object-contain h-48 w-full" :src="formDataUpdate.img">
                                 </div>
                                 <x-label for="img" :value="__('img')" />
                                 <x-input id="img" class="block mt-1 w-full" type="file"  v-on:change="handleFileUpload" accept="image/*"  autofocus required/>
@@ -92,11 +92,17 @@
                 this.formDataUpdate = response.data.data
             },
             handleFileUpload(e){
-                console.log(e);
+                console.log(e.target.files[0])
+                this.formDataUpdate.img = e.target.files[0]
             },
             // Update
             async updatePlalist(){
-                const response = await axios.get(`playlist/${this.slug}/edit`)
+                let formData = new FormData()
+                const config = {
+                    headers: { 'content-type': 'multipart/form-data' }
+                }
+                formData.append('file', this.formDataUpdate.img);
+                const response = await axios.put(`playlist/${this.slug}`, formData, config)
                 console.log(response)
             }
         },
