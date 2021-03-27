@@ -92,17 +92,15 @@
                 this.formDataUpdate = response.data.data
             },
             handleFileUpload(e){
-                console.log(e.target.files[0])
-                this.formDataUpdate.img = e.target.files[0]
+                var fileReader = new FileReader();
+                fileReader.readAsDataURL(e.target.files[0]);
+                fileReader.onload = (e) => {
+                    this.formDataUpdate.img = e.target.files[0]
+                };
             },
             // Update
             async updatePlalist(){
-                let formData = new FormData()
-                const config = {
-                    headers: { 'content-type': 'multipart/form-data' }
-                }
-                formData.append('file', this.formDataUpdate.img);
-                const response = await axios.put(`playlist/${this.slug}`, formData, config)
+                const response = await axios.put(`playlist/${this.slug}`, this.formDataUpdate)
                 console.log(response)
             }
         },

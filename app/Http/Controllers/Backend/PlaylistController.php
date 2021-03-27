@@ -54,7 +54,8 @@ class PlaylistController extends Controller
     // UPDATE
     public function update(Request $request, $slug)
     {
-        dd($request);
+        dd($request->all());
+        // dd($slug);
     }
 
     /**
