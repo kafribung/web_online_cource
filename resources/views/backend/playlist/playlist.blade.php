@@ -54,11 +54,11 @@
                             </div>
                             <div class="mt-2">
                                 <x-label for="title" :value="__('Title')" />
-                                <x-input id="title" class="block mt-2 w-full" type="text" v-model="formDataUpdate.title" required />
+                                <x-input id="title" class="block mt-2 w-full" type="text" name="title" v-model="formDataUpdate.title" required />
                             </div>
                             <div class="mt-2">
                                 <x-label for="price" :value="__('Price')" />
-                                <x-input id="price" class="block mt-2 w-full" type="number" v-model="formDataUpdate.price" required />
+                                <x-input id="price" class="block mt-2 w-full" type="number" name="price" v-model="formDataUpdate.price" required />
                             </div>
                             <div class="flex justify-end m-2">
                                 <button @click="showModal=false" class="px-4 py-2 bg-red-500 text-white rounded mr-2">Close</button>
@@ -80,6 +80,7 @@
             return {
                 showModal: false,
                 formDataUpdate: {},
+                img: null,
                 slug: null,
             }
         },
@@ -92,16 +93,27 @@
                 this.formDataUpdate = response.data.data
             },
             handleFileUpload(e){
-                var fileReader = new FileReader();
-                fileReader.readAsDataURL(e.target.files[0]);
-                fileReader.onload = (e) => {
-                    this.formDataUpdate.img = e.target.files[0]
-                };
+                this.img = e.target.files[0]
+                console.log(this.formDataUpdate.img)
+
+                // var fileReader = new FileReader();
+                // fileReader.readAsDataURL(e.target.files[0]);
+                // fileReader.onload = (e) => {
+                //     this.formDataUpdate.img = e.target.files[0]
+                // };
             },
             // Update
             async updatePlalist(){
-                const response = await axios.put(`playlist/${this.slug}`, this.formDataUpdate)
-                console.log(response)
+                let formData = new FormData()
+                formData.append('img', this.img, this.img.name)
+                formData.append('title', this.formDataUpdate.title)
+                formData.append('price', this.formDataUpdate.price)
+                const config = {
+                    headers: { 'content-type': 'multipart/form-data' }
+                }
+                // const response = await axios.patch(`playlist/${this.slug}`, formData)
+                const response = await axios.post(`playlist/`, formData, config)
+                console.log()
             }
         },
     })
