@@ -38,6 +38,8 @@
             </div>
         </div> 
         @endforeach
+        <div class="font-weight-bolder">@{{ this.formDataUpdate }}</div>
+
         {{-- Modal --}}
         <div v-if="showModal" class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center z-50">
             <div class="relative mx-auto w-80 max-w-2xl">
@@ -54,11 +56,22 @@
                             </div>
                             <div class="mt-2">
                                 <x-label for="title" :value="__('Title')" />
-                                <x-input id="title" class="block mt-2 w-full" type="text" name="title" v-model="formDataUpdate.title" required />
+                                <x-input id="title" class="block mt-2 w-full" type="text" v-model="formDataUpdate.title" required />
                             </div>
                             <div class="mt-2">
                                 <x-label for="price" :value="__('Price')" />
-                                <x-input id="price" class="block mt-2 w-full" type="number" name="price" v-model="formDataUpdate.price" required />
+                                <x-input id="price" class="block mt-2 w-full" type="number" v-model="formDataUpdate.price" required />
+                            </div>
+                            <div class="mt-2">
+                                <x-label for="category" :value="__('Category')" />
+                                <select  id="category"  class="select2 block mt-2 w-full"  v-model="categories" multiple required />
+                                    <option >sapi</option> 
+                                    <option >kuda</option> 
+                                </select>
+                            </div>
+                            <div class="mt-2">
+                                <x-label for="description" :value="__('Description')" />
+                                <x-text-area  class="block mt-2 w-full" v-model="formDataUpdate.description">{{ old('description') }}</x-text-area>
                             </div>
                             <div class="flex justify-end m-2">
                                 <button @click="showModal=false" class="px-4 py-2 bg-red-500 text-white rounded mr-2">Close</button>
@@ -80,9 +93,10 @@
             return {
                 showModal: false,
                 formDataUpdate: {},
-                img: null,
                 slug: null,
             }
+        },
+        mounted() {
         },
         methods: {
             // Edit
@@ -93,9 +107,6 @@
                 this.formDataUpdate = response.data.data
             },
             handleFileUpload(e){
-                // this.img = e.target.files[0]
-                // console.log(this.formDataUpdate.img)
-
                 let file = e.target.files[0];
                 var fileReader = new FileReader();
                 fileReader.readAsDataURL(file);
@@ -106,6 +117,7 @@
             },
             // Update
             async updatePlalist(){
+                // FormData (Hanya untuk method post)
                 // let formData = new FormData()
                 // formData.append('img', this.img, this.img.name)
                 // formData.append('title', this.formDataUpdate.title)
@@ -114,7 +126,6 @@
                 //     headers: { 'content-type': 'multipart/form-data' }
                 // }
                 // const response = await axios.post(`playlist/`, formData, config)
-
                 const response = await axios.patch(`playlist/${this.slug}`, this.formDataUpdate)
                 console.log(response)
             }
