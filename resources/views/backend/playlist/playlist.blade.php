@@ -93,27 +93,30 @@
                 this.formDataUpdate = response.data.data
             },
             handleFileUpload(e){
-                this.img = e.target.files[0]
-                console.log(this.formDataUpdate.img)
+                // this.img = e.target.files[0]
+                // console.log(this.formDataUpdate.img)
 
-                // var fileReader = new FileReader();
-                // fileReader.readAsDataURL(e.target.files[0]);
-                // fileReader.onload = (e) => {
-                //     this.formDataUpdate.img = e.target.files[0]
-                // };
+                let file = e.target.files[0];
+                var fileReader = new FileReader();
+                fileReader.readAsDataURL(file);
+                fileReader.onload = (e) => {
+                    this.formDataUpdate.img = e.target.result
+                    console.log(this.formDataUpdate.img);
+                };
             },
             // Update
             async updatePlalist(){
-                let formData = new FormData()
-                formData.append('img', this.img, this.img.name)
-                formData.append('title', this.formDataUpdate.title)
-                formData.append('price', this.formDataUpdate.price)
-                const config = {
-                    headers: { 'content-type': 'multipart/form-data' }
-                }
-                // const response = await axios.patch(`playlist/${this.slug}`, formData)
-                const response = await axios.post(`playlist/`, formData, config)
-                console.log()
+                // let formData = new FormData()
+                // formData.append('img', this.img, this.img.name)
+                // formData.append('title', this.formDataUpdate.title)
+                // formData.append('price', this.formDataUpdate.price)
+                // const config = {
+                //     headers: { 'content-type': 'multipart/form-data' }
+                // }
+                // const response = await axios.post(`playlist/`, formData, config)
+
+                const response = await axios.patch(`playlist/${this.slug}`, this.formDataUpdate)
+                console.log(response)
             }
         },
     })

@@ -24,26 +24,21 @@ class PlaylistController extends Controller
         return view('backend.playlist.create', compact('categories'));
     }
 
-    // STORE
-    // public function store(PlaylistRequest $request)
-    // {
-    //     $data = $request->validated();
-    //     if ($img=  $request->file('img')) {
-    //         $data['img'] = $img->storeAs('img_playlist', time() .  '.' . $img->getClientOriginalExtension()); 
-    //     }
-    //     $data['slug'] = \Str::slug($request->title);
-    //     // Eloquent Create Playlist
-    //     $playlist =  $request->user()->playlists()->create($data);
-    //     // Eloquent Relation manyToMany
-    //     $playlist->categories()->attach($request->category);
-    //     return response()->json(['msg', 'The item was created successfully']);
-    // }
-
-    public function store(Request $request)
+    //STORE
+    public function store(PlaylistRequest $request)
     {
-        $data = $request->title;
-        dd($data);
+        $data = $request->validated();
+        if ($img=  $request->file('img')) {
+            $data['img'] = $img->storeAs('img_playlist', time() .  '.' . $img->getClientOriginalExtension()); 
+        }
+        $data['slug'] = \Str::slug($request->title);
+        // Eloquent Create Playlist
+        $playlist =  $request->user()->playlists()->create($data);
+        // Eloquent Relation manyToMany
+        $playlist->categories()->attach($request->category);
+        return response()->json(['msg', 'The item was created successfully']);
     }
+
 
     // SHOW
     public function show($id)
@@ -60,7 +55,7 @@ class PlaylistController extends Controller
     // UPDATE
     public function update(Request $request, $slug)
     {
-        dd($request->all());
+        dd($request->img);
         // dd($slug);
     }
 
