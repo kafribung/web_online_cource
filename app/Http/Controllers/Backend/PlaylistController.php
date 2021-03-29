@@ -55,7 +55,7 @@ class PlaylistController extends Controller
     // UPDATE
     public function update(Request $request, $slug)
     {
-        dd($request->img);
+        dd($name = time().'.' . explode('/', explode(':', substr($request->img, 0, strpos($request->img, ';')))[1])[1]);
         // dd($slug);
     }
 
