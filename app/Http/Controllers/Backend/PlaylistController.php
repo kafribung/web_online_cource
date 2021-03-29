@@ -53,10 +53,10 @@ class PlaylistController extends Controller
     }
 
     // UPDATE
-    public function update(Request $request, $slug)
+    public function update(Request $request, Playlist $playlist)
     {
-        dd($name = time().'.' . explode('/', explode(':', substr($request->img, 0, strpos($request->img, ';')))[1])[1]);
-        // dd($slug);
+        // dd($name = time().'.' . explode('/', explode(':', substr($request->img, 0, strpos($request->img, ';')))[1])[1]);
+        dd($playlist);
     }
 
     /**
