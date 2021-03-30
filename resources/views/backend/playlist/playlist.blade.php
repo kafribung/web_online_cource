@@ -64,9 +64,8 @@
                             </div>
                             <div class="mt-2">
                                 <x-label for="category" :value="__('Category')" />
-                                <select  id="category"  class="select2 block mt-2 w-full"  v-model="categories" multiple required />
-                                    <option >sapi</option> 
-                                    <option >kuda</option> 
+                                <select  id="category"  class="select2 block mt-2 w-full" id="unit"  v-model="formDataUpdate.category_id" multiple required />
+                                    <option v-for="category in categories" :key="category.id" :value="category.id" v-html="category.title"></option> 
                                 </select>
                             </div>
                             <div class="mt-2">
@@ -84,6 +83,12 @@
         </div>
     </div>
 @push('after_script')
+{{-- JQuery --}}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+{{-- Select2 --}}
+<link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{{-- Vue.Js --}}
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 <script>
@@ -92,24 +97,27 @@
         data() {
             return {
                 showModal: false,
-                formDataUpdate: {},
+                formDataUpdate: {
+                },
                 slug: null,
                 categories: {},
             }
         },
         mounted() {
+            // Get Category
             this.getCategories()
         },
         methods: {
             // Edit
             async editPlaylist(slug){
+                
                 this.showModal = !this.showModal
                 this.slug = slug
                 const response = await axios.get(`playlist/${slug}/edit`)
                 this.formDataUpdate = response.data.data
             },
             async getCategories(){
-                const response = await axios.get('/category')
+                const response = await axios.get('api/category')
                 this.categories = response.data.data
                 console.log(this.categories)
             },
