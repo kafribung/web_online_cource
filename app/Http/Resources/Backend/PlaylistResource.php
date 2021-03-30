@@ -2,6 +2,7 @@
 
 namespace App\Http\Resources\Backend;
 
+use App\Models\Category;
 use Illuminate\Http\Resources\Json\JsonResource;
 
 class PlaylistResource extends JsonResource
@@ -21,7 +22,6 @@ class PlaylistResource extends JsonResource
             'price'  => $this->price,
             'description' => $this->description,
             'user'   => $this->user->name,
-            'categories'   => $this->categories->title,
         ];
     }
 }

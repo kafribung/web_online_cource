@@ -27,12 +27,15 @@ Route::middleware('auth')->group(function(){
     // Category
     // authorization : super-admin hanya dapat mendeteksi method middleware permission
     Route::middleware('permission:create category')->prefix('category')->group(function(){
+        // Category memiliki API endpoint
         Route::get('', [CategoryController::class, 'index'])->name('category.index');
         Route::get('create', [CategoryController::class, 'create'])->name('category.create');
         Route::post('create', [CategoryController::class, 'store']);
         Route::get('edit/{category:slug}', [CategoryController::class, 'edit'])->name('category.edit');
         Route::patch('edit/{category:slug}', [CategoryController::class, 'update']);
         Route::delete('delete/{category:slug}', [CategoryController::class, 'destroy']);
+
+        
     });
     // Playlist (Dapat diakses user biasa)
     Route::resource('playlist', PlaylistController::class)->middleware('auth');

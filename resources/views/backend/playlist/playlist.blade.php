@@ -94,9 +94,11 @@
                 showModal: false,
                 formDataUpdate: {},
                 slug: null,
+                categories: {},
             }
         },
         mounted() {
+            this.getCategories()
         },
         methods: {
             // Edit
@@ -105,6 +107,11 @@
                 this.slug = slug
                 const response = await axios.get(`playlist/${slug}/edit`)
                 this.formDataUpdate = response.data.data
+            },
+            async getCategories(){
+                const response = await axios.get('/category')
+                this.categories = response.data.data
+                console.log(this.categories)
             },
             handleFileUpload(e){
                 let file = e.target.files[0];

@@ -61,13 +61,11 @@
     <script>
         let token = $('meta[name="csrf-token"]').attr('content');
         $(function() {
-            //form submission code goes here
             $("form[name='demoform']").submit(function(event) {
-                //Make sure that the form isn't actully being sent.
                 event.preventDefault();
                 URL = $("#demoform").attr('action');
-                // formData = $('#demoform').serialize();
-                formData = new FormData(this);
+                // formData = $('#demoform').serialize() // Untuk get semuad data (Tdk include file);
+                formData = new FormData(this); // Untuk get semua data include dengan file
                 $.ajax({
                     type: 'POST',
                     url: URL,
