@@ -81,7 +81,7 @@
                             showConfirmButton: false,
                             timer: 2000
                         })
-                        location.reload('/playlist')
+                        location.reload('playlist')
                     },
                     error: function(result){
                         if(result= result.responseJSON.errors)

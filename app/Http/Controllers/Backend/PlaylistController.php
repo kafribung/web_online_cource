@@ -69,14 +69,11 @@ class PlaylistController extends Controller
         return response()->json(['msg', 'The item was update successfully']);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
+    // DESTROY
+    public function destroy(Playlist $playlist)
     {
-        //
+        Storage::delete($playlist->img);
+        $playlist->delete();
+        return response()->json(['msg', 'The item was delete successfully']);
     }
 }
