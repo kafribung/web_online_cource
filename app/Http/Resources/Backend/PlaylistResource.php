@@ -22,6 +22,7 @@ class PlaylistResource extends JsonResource
             'price'  => $this->price,
             'description' => $this->description,
             'user'   => $this->user->name,
+            'category_id' => [],
         ];
     }
 }

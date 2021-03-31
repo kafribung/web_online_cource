@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\{Category, Playlist};
 use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\Backend\PlaylistRequest;
 use App\Http\Resources\Backend\PlaylistResource;
 
@@ -60,11 +61,11 @@ class PlaylistController extends Controller
         if ($request->img) {
             $name  =  $name = time().'.' . explode('/', explode(':', substr($request->img, 0, strpos($request->img, ';')))[1])[1];
             Image::make($request->img)->resize(400, 400)->save(storage_path('app/public/img_playlist/').$name);
-            $data['img'] = $name;
+            $data['img'] = 'img_playlist/' . $name;
         }
         $playlist->update($data);
         $playlist->categories()->sync($request->category);
-        return response()->json(['msg', 'The item was created successfully']);
+        return response()->json(['msg', 'The item was update successfully']);
     }
 
     /**

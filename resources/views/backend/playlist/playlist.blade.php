@@ -52,7 +52,7 @@
                                     <img class="object-contain h-48 w-full" :src="formDataUpdate.img">
                                 </div>
                                 <x-label for="img" :value="__('img')" />
-                                <x-input id="img" class="block mt-1 w-full" type="file"  v-on:change="handleFileUpload" accept="image/*"  autofocus required/>
+                                <x-input id="img" class="block mt-1 w-full" type="file"  v-on:change="handleFileUpload" accept="image/*"  autofocus/>
                             </div>
                             <div class="mt-2">
                                 <x-label for="title" :value="__('Title')" />
@@ -64,7 +64,7 @@
                             </div>
                             <div class="mt-2">
                                 <x-label for="category" :value="__('Category')" />
-                                <select  id="category"  class="select2 block mt-2 w-full" id="unit"  v-model="formDataUpdate.category_id" multiple required />
+                                <select  id="category"  class="select2 block mt-2 w-full" id="unit"  v-model="formDataUpdate.category" multiple required />
                                     <option v-for="category in categories" :key="category.id" :value="category.id" v-html="category.title"></option> 
                                 </select>
                             </div>
@@ -98,7 +98,9 @@
             return {
                 showModal: false,
                 formDataUpdate: {
+                    'category': [],
                 },
+                img:null,
                 slug: null,
                 categories: {},
             }
@@ -110,7 +112,6 @@
         methods: {
             // Edit
             async editPlaylist(slug){
-                
                 this.showModal = !this.showModal
                 this.slug = slug
                 const response = await axios.get(`playlist/${slug}/edit`)
@@ -119,15 +120,13 @@
             async getCategories(){
                 const response = await axios.get('api/category')
                 this.categories = response.data.data
-                console.log(this.categories)
             },
             handleFileUpload(e){
                 let file = e.target.files[0];
                 var fileReader = new FileReader();
                 fileReader.readAsDataURL(file);
                 fileReader.onload = (e) => {
-                    this.formDataUpdate.img = e.target.result
-                    console.log(this.formDataUpdate.img);
+                    this.img = e.target.result
                 };
             },
             // Update
@@ -141,8 +140,21 @@
                 //     headers: { 'content-type': 'multipart/form-data' }
                 // }
                 // const response = await axios.post(`playlist/`, formData, config)
-                const response = await axios.patch(`playlist/${this.slug}`, this.formDataUpdate)
-                console.log(response)
+                let formDataUpdate= {
+                    'title' : this.formDataUpdate.title,
+                    'img'   : this.img,
+                    'price' : this.formDataUpdate.price,
+                    'description' : this.formDataUpdate.description,
+                    'category' : this.formDataUpdate.category_id,
+                }
+                const response = await axios.patch(`playlist/${this.slug}`, formDataUpdate)
+                Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'Your work has been saved',
+                            showConfirmButton: false,
+                            timer: 2000
+                })
             }
         },
     })
