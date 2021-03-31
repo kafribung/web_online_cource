@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Backend;
 
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\{Category, Playlist};
+use Intervention\Image\Facades\Image;
 use App\Http\Requests\Backend\PlaylistRequest;
 use App\Http\Resources\Backend\PlaylistResource;
-use App\Models\{Category, Playlist};
-use Illuminate\Http\Request;
 
 class PlaylistController extends Controller
 {
@@ -55,8 +56,15 @@ class PlaylistController extends Controller
     // UPDATE
     public function update(Request $request, Playlist $playlist)
     {
-        // dd($name = time().'.' . explode('/', explode(':', substr($request->img, 0, strpos($request->img, ';')))[1])[1]);
-        dd($playlist);
+        $data = $request->all();
+        if ($request->img) {
+            $name  =  $name = time().'.' . explode('/', explode(':', substr($request->img, 0, strpos($request->img, ';')))[1])[1];
+            Image::make($request->img)->resize(400, 400)->save(storage_path('app/public/img_playlist/').$name);
+            $data['img'] = $name;
+        }
+        $playlist->update($data);
+        $playlist->categories()->sync($request->category);
+        return response()->json(['msg', 'The item was created successfully']);
     }
 
     /**
