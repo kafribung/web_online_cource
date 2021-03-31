@@ -38,7 +38,6 @@
             </div>
         </div> 
         @endforeach
-        <div class="font-weight-bolder">@{{ this.formDataUpdate }}</div>
 
         {{-- Modal --}}
         <div v-if="showModal" class="fixed overflow-x-hidden overflow-y-auto inset-0 flex justify-center items-center z-50">
@@ -88,6 +87,8 @@
 {{-- Select2 --}}
 <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+{{-- SweetAlert --}}
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script>
 {{-- Vue.Js --}}
 <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -117,10 +118,12 @@
                 const response = await axios.get(`playlist/${slug}/edit`)
                 this.formDataUpdate = response.data.data
             },
+            // Get Category
             async getCategories(){
                 const response = await axios.get('api/category')
                 this.categories = response.data.data
             },
+            // File Foto
             handleFileUpload(e){
                 let file = e.target.files[0];
                 var fileReader = new FileReader();
@@ -145,16 +148,17 @@
                     'img'   : this.img,
                     'price' : this.formDataUpdate.price,
                     'description' : this.formDataUpdate.description,
-                    'category' : this.formDataUpdate.category_id,
+                    'category' : this.formDataUpdate.category,
                 }
                 const response = await axios.patch(`playlist/${this.slug}`, formDataUpdate)
                 Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Your work has been saved',
-                            showConfirmButton: false,
-                            timer: 2000
+                    position: 'top-end',
+                    icon: 'success',
+                    title: 'Your work has been saved',
+                    showConfirmButton: false,
+                    timer: 2000
                 })
+                location.reload('playlist')
             }
         },
     })

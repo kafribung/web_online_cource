@@ -59,6 +59,7 @@ class PlaylistController extends Controller
     {
         $data = $request->all();
         if ($request->img) {
+            Storage::delete($playlist->img);
             $name  =  $name = time().'.' . explode('/', explode(':', substr($request->img, 0, strpos($request->img, ';')))[1])[1];
             Image::make($request->img)->resize(400, 400)->save(storage_path('app/public/img_playlist/').$name);
             $data['img'] = 'img_playlist/' . $name;
