@@ -10,5 +10,4 @@
             @include('backend.admin._form', ['btn' => 'edit'])
         </form>
     </div>
-
 </x-app-layout>

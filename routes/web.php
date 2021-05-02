@@ -12,13 +12,13 @@ Route::middleware('auth')->group(function(){
     // Dashboard
     Route::get('dashboard', DashboardController::class)->name('dashboard');
     // Admin
-    Route::group(['middleware' => 'role:super-admin', 'prefix' => 'admin'], function(){
-        Route::get('', [AdminController::class, 'index'])->name('admin.index');
-        Route::get('create', [AdminController::class, 'create'])->name('admin.create');
+    Route::group(['middleware' => 'role:super-admin', 'prefix' => 'admin', 'name' => 'admin'], function(){
+        Route::get('', [AdminController::class, 'index'])->name('index');
+        Route::get('create', [AdminController::class, 'create'])->name('create');
         Route::post('create', [AdminController::class, 'store']);
-        Route::get('edit/{user:email}', [AdminController::class, 'edit'])->name('admin.edit');
+        Route::get('edit/{user:email}', [AdminController::class, 'edit'])->name('edit');
         Route::patch('edit/{user:email}', [AdminController::class, 'update']);
-        Route::delete('delete/{user:email}', [AdminController::class, 'destroy'])->name('admin.destroy');
+        Route::delete('delete/{user:email}', [AdminController::class, 'destroy'])->name('destroy');
     });
     // User
     Route::middleware('role:super-admin')->group(function(){
