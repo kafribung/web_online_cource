@@ -12,7 +12,7 @@ Route::middleware('auth')->group(function(){
     // Dashboard
     Route::get('dashboard', DashboardController::class)->name('dashboard');
     // Admin
-    Route::group(['middleware' => 'role:super-admin', 'prefix' => 'admin', 'name' => 'admin'], function(){
+    Route::group(['middleware' => 'role:super-admin', 'prefix' => 'admin', 'name' => 'admin.'], function(){
         Route::get('', [AdminController::class, 'index'])->name('index');
         Route::get('create', [AdminController::class, 'create'])->name('create');
         Route::post('create', [AdminController::class, 'store']);
